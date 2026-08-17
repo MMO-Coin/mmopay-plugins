@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+	<phrase title="mmocoinpay_api_key" version_id="1000010" version_string="1.0.0"><![CDATA[MMOCoin Pay API Key]]></phrase>
+	<phrase title="mmocoinpay_api_key_explain" version_id="1000010" version_string="1.0.0"><![CDATA[Enter your API key generated from the pay.mmocoin.pro merchant dashboard (starts with mmo_live_ or mmo_sk_).]]></phrase>
+	<phrase title="mmocoinpay_webhook_secret" version_id="1000010" version_string="1.0.0"><![CDATA[Webhook Signing Secret (Required)]]></phrase>
+	<phrase title="mmocoinpay_webhook_secret_explain" version_id="1000010" version_string="1.0.0"><![CDATA[Required. Must match the webhook secret set on this merchant's pay.mmocoin.pro account, with the webhook URL there pointed at this forum's payment_callback.php?_xfProvider=mmocoinpay. Payments cannot be approved without it.]]></phrase>
+	<phrase title="mmocoinpay_endpoint" version_id="1000010" version_string="1.0.0"><![CDATA[API Base URL]]></phrase>
+	<phrase title="mmocoinpay_endpoint_explain" version_id="1000010" version_string="1.0.0"><![CDATA[Base URL for the MMOCoin Pay API (default: https://pay.mmocoin.pro).]]></phrase>
+	<phrase title="mmocoinpay_accepted_tokens" version_id="1000010" version_string="1.0.0"><![CDATA[Accepted Crypto Tokens]]></phrase>
+	<phrase title="mmocoinpay_accepted_tokens_explain" version_id="1000010" version_string="1.0.0"><![CDATA[Comma-separated list of tokens to accept (USDC, USDT, MMO). Ensure your payout wallet holds at least ~0.01 SOL for rent.]]></phrase>
+	<phrase title="mmocoinpay_currency_notice" version_id="1000010" version_string="1.0.0"><![CDATA[User Upgrades using this payment profile must be priced in USD. The dollar amount is converted into whichever token the buyer picks at checkout.]]></phrase>
+	<phrase title="mmocoinpay_confirm_payment_details" version_id="1000010" version_string="1.0.0"><![CDATA[Confirm Payment Details]]></phrase>
+	<phrase title="mmocoinpay_could_not_start_checkout" version_id="1000010" version_string="1.0.0"><![CDATA[Could not start the checkout session. Please try again shortly.]]></phrase>
+	<phrase title="mmocoinpay_upgrade_must_be_priced_in_usd" version_id="1000010" version_string="1.0.0"><![CDATA[This upgrade is not priced in USD, so MMOCoin Pay cannot convert it into a token amount. Ask the site owner to fix the upgrade's currency.]]></phrase>
+	<phrase title="mmocoinpay_you_must_enter_an_api_key" version_id="1000010" version_string="1.0.0"><![CDATA[You must enter your MMOCoin Pay API key.]]></phrase>
+	<phrase title="mmocoinpay_you_must_enter_a_webhook_secret" version_id="1000010" version_string="1.0.0"><![CDATA[You must enter a webhook signing secret, and set the same one on your pay.mmocoin.pro account.]]></phrase>
+</phrases>

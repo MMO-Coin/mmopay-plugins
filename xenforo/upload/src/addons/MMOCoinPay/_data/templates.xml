@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+	<template title="payment_profile_mmocoinpay" type="admin" version_id="1000010" version_string="1.0.0"><![CDATA[<xf:textboxrow name="options[api_key]" value="{$profile.options.api_key}" type="text" label="{{ phrase('mmocoinpay_api_key') }}">
+	<xf:explain>{{ phrase('mmocoinpay_api_key_explain') }}</xf:explain>
+</xf:textboxrow>
+<xf:textboxrow name="options[webhook_secret]" value="{$profile.options.webhook_secret}" type="text" label="{{ phrase('mmocoinpay_webhook_secret') }}">
+	<xf:explain>{{ phrase('mmocoinpay_webhook_secret_explain') }}</xf:explain>
+</xf:textboxrow>
+<xf:textboxrow name="options[endpoint]" value="{$profile.options.endpoint}" type="text" label="{{ phrase('mmocoinpay_endpoint') }}" placeholder="https://pay.mmocoin.pro">
+	<xf:explain>{{ phrase('mmocoinpay_endpoint_explain') }}</xf:explain>
+</xf:textboxrow>
+<xf:textboxrow name="options[accepted_tokens]" value="{$profile.options.accepted_tokens}" type="text" label="{{ phrase('mmocoinpay_accepted_tokens') }}" placeholder="USDC,USDT,MMO">
+	<xf:explain>{{ phrase('mmocoinpay_accepted_tokens_explain') }}</xf:explain>
+</xf:textboxrow>
+<xf:formrow label="">
+	<xf:formrow-explain>{{ phrase('mmocoinpay_currency_notice') }}</xf:formrow-explain>
+</xf:formrow>]]></template>
+	<template title="payment_initiate_mmocoinpay" type="public" version_id="1000010" version_string="1.0.0"><![CDATA[<xf:title>{{ phrase('mmocoinpay_confirm_payment_details') }}</xf:title>
+<xf:if is="$mmoPay.status">
+	<form action="{$mmoPay.message}" class="block block--paymentInitiate" method="GET">
+		<div class="block-container">
+			<div class="block-body">
+				<xf:formrow controlid="element">
+					<div class="formRow-explain">{{ phrase('payments_processed_securely_by_x', {'link': 'https://pay.mmocoin.pro/', 'provider': 'MMOCoin Pay'}) }}</div>
+				</xf:formrow>
+				<hr class="formRowSep" />
+				<xf:formrow label="" rowtype="button">
+					<xf:button type="submit" icon="payment">
+						{{ phrase('pay_x', {'cost': $purchase.cost|currency($purchase.currency)}) }}
+					</xf:button>
+				</xf:formrow>
+			</div>
+		</div>
+	</form>
+<xf:else />
+	<div class="blockMessage blockMessage--error">{$mmoPay.message}</div>
+</xf:if>]]></template>
+</templates>

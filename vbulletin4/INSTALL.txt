@@ -1,0 +1,36 @@
+================================================================================
+MMOCOIN PAY - VBULLETIN 4.X PAYMENT GATEWAY INSTALLATION
+Official Crypto Gateway: https://pay.mmocoin.pro
+================================================================================
+
+ACCEPTED TOKENS:
+- MMO, USDT, USDC (Solana Network)
+
+MERCHANT REQUIREMENT:
+- Your receiving payout wallet on Solana must hold at least ~0.01 SOL to 
+  support rent-exempt token account initialization.
+
+EASY 2-STEP INSTALLATION:
+
+1. UPLOAD:
+   Upload the file inside the "upload" folder to your forum:
+   includes/paymentapi/class_mmocoin_pay.php  -->  [your_forum_root]/includes/paymentapi/
+
+2. IMPORT XML:
+   Go to AdminCP -> Plugins & Products -> Manage Products -> [Add / Import Product]
+   Upload and import: product-mmocoin_pay.xml
+
+3. CONFIGURE:
+   - In AdminCP -> Paid Subscriptions -> Payment API Manager:
+     Edit "MMOCoin Pay (USDC, USDT, MMO)" and enter your API Key:
+     (Obtain API Key from https://pay.mmocoin.pro -> Dashboard -> Developers)
+   - Webhook Secret is REQUIRED (not optional). Generate any random string,
+     enter it here, and enter the SAME string on pay.mmocoin.pro under
+     Dashboard -> Settings -> Webhook secret.
+   - On pay.mmocoin.pro, also set the Webhook URL to:
+       https://yourforum.com/payment_gateway.php?method=mmocoin_pay
+     Without this, this merchant's payments cannot be approved -- the gateway
+     refuses to activate a subscription it cannot cryptographically verify.
+
+DONE! Your forum can now accept instant MMO, USDT, and USDC crypto subscriptions!
+================================================================================

@@ -1,0 +1,14 @@
+{
+    "title": "MMOCoin Pay Payment Integration",
+    "description": "Accept instant Solana crypto payments and paid subscriptions in USDC, USDT, and MMO via pay.mmocoin.pro, with automated user upgrade activation and mandatory HMAC-SHA256 webhook verification.",
+    "version_id": 1000010,
+    "version_string": "1.0.0",
+    "dev": "MMOCoin",
+    "dev_url": "https://pay.mmocoin.pro",
+    "faq_url": "",
+    "support_url": "https://www.mmopro.org",
+    "extra_urls": {
+        "MMOCoin Pay": "https://pay.mmocoin.pro"
+    },
+    "require": []
+}

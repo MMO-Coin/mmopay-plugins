@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<product productid="mmocoin_pay" active="1">
+	<title>MMOCoin Pay (USDC, USDT, MMO Subscriptions)</title>
+	<description>Accept instant Solana-based crypto payments &amp; subscriptions in MMO, USDT, and USDC via pay.mmocoin.pro with automated usergroup upgrades and mandatory HMAC-SHA256 webhook verification.</description>
+	<version>1.2.0</version>
+	<url>https://pay.mmocoin.pro</url>
+	<dependencies>
+	</dependencies>
+	<codes>
+		<code version="1.2.0">
+			<installcode><![CDATA[
+$default_settings = serialize(array(
+	'apikey' => array(
+		'type'  => 'text',
+		'value' => ''
+	),
+	'webhook_secret' => array(
+		'type'  => 'text',
+		'value' => ''
+	),
+	'endpoint' => array(
+		'type'  => 'text',
+		'value' => 'https://pay.mmocoin.pro'
+	),
+	'accepted_tokens' => array(
+		'type'  => 'text',
+		'value' => 'USDC,USDT,MMO'
+	),
+	'debug' => array(
+		'type'  => 'yesno',
+		'value' => '0'
+	)
+));
+
+$vbulletin->db->query_write("
+	INSERT INTO " . TABLE_PREFIX . "paymentapi
+		(title, currency, recurring, classname, active, settings)
+	VALUES
+		('MMOCoin Pay (USDC, USDT, MMO)', 'usd,eur,gbp,cad,aud,usdc,usdt,mmo', 0, 'mmocoin_pay', 1, '" . $vbulletin->db->escape_string($default_settings) . "')
+	ON DUPLICATE KEY UPDATE
+		title = VALUES(title),
+		currency = VALUES(currency),
+		active = 1
+");
+
+// Insert phrases for AdminCP payment API settings
+$phrases = array(
+	'setting_mmocoin_pay_apikey_title' => 'MMOCoin Pay API Key',
+	'setting_mmocoin_pay_apikey_desc' => 'Enter your API key generated from the pay.mmocoin.pro merchant dashboard (starts with mmo_live_ or mmo_sk_).',
+	'setting_mmocoin_pay_webhook_secret_title' => 'Webhook Signing Secret (Required)',
+	'setting_mmocoin_pay_webhook_secret_desc' => 'Required. Must match the webhook secret set on this merchant\'s pay.mmocoin.pro account, with the webhook URL there pointed at this forum\'s payment_gateway.php?method=mmocoin_pay. Payments cannot be approved without it.',
+	'setting_mmocoin_pay_endpoint_title' => 'API Base URL',
+	'setting_mmocoin_pay_endpoint_desc' => 'Base URL for MMOCoin Pay API (Default: https://pay.mmocoin.pro).',
+	'setting_mmocoin_pay_accepted_tokens_title' => 'Accepted Crypto Tokens',
+	'setting_mmocoin_pay_accepted_tokens_desc' => 'Comma-separated list of tokens to accept (USDC, USDT, MMO). Note: Ensure your payout wallet has at least ~0.01 SOL for rent.',
+	'setting_mmocoin_pay_debug_title' => 'Enable Debug Logging',
+	'setting_mmocoin_pay_debug_desc' => 'If enabled, detailed checkout session creation and webhook verification logs will be written to mmocoin_pay_debug.log in the forum root.'
+);
+
+foreach ($phrases as $varname => $text) {
+	$vbulletin->db->query_write("
+		INSERT INTO " . TABLE_PREFIX . "phrase
+			(languageid, varname, fieldname, text, product, username, dateline, version)
+		VALUES
+			(0, '" . $vbulletin->db->escape_string($varname) . "', 'subscription', '" . $vbulletin->db->escape_string($text) . "', 'mmocoin_pay', 'MMOCoin', " . TIMENOW . ", '1.2.0')
+		ON DUPLICATE KEY UPDATE
+			text = VALUES(text),
+			dateline = VALUES(dateline)
+	");
+}
+
+if (file_exists(DIR . '/includes/adminfunctions_language.php')) {
+	require_once(DIR . '/includes/adminfunctions_language.php');
+	build_language(-1);
+}
+			]]></installcode>
+			<uninstallcode><![CDATA[
+$vbulletin->db->query_write("
+	DELETE FROM " . TABLE_PREFIX . "paymentapi
+	WHERE classname = 'mmocoin_pay'
+");
+$vbulletin->db->query_write("
+	DELETE FROM " . TABLE_PREFIX . "phrase
+	WHERE product = 'mmocoin_pay'
+");
+if (file_exists(DIR . '/includes/adminfunctions_language.php')) {
+	require_once(DIR . '/includes/adminfunctions_language.php');
+	build_language(-1);
+}
+			]]></uninstallcode>
+		</code>
+	</codes>
+	<templates>
+	</templates>
+	<plugins>
+		<plugin active="1" executionorder="1">
+			<title>MMOCoin Pay - Webhook Input Handler</title>
+			<hookname>payment_gateway_start</hookname>
+			<phpcode><![CDATA[
+if (isset($_REQUEST['method']) && $_REQUEST['method'] === 'mmocoin_pay') {
+    if (empty($_POST['callback'])) {
+        $_POST['callback'] = @file_get_contents('php://input');
+    }
+}
+			]]></phpcode>
+		</plugin>
+	</plugins>
+	<phrases>
+		<phrasetype name="Subscription" fieldname="subscription">
+			<phrase name="setting_mmocoin_pay_apikey_title" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[MMOCoin Pay API Key]]></phrase>
+			<phrase name="setting_mmocoin_pay_apikey_desc" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[Enter your API key generated from the pay.mmocoin.pro merchant dashboard (starts with mmo_live_ or mmo_sk_).]]></phrase>
+			<phrase name="setting_mmocoin_pay_webhook_secret_title" date="1771600000" username="MMOCoin" version="1.1.0"><![CDATA[Webhook Signing Secret (Required)]]></phrase>
+			<phrase name="setting_mmocoin_pay_webhook_secret_desc" date="1771600000" username="MMOCoin" version="1.1.0"><![CDATA[Required. Must match the webhook secret set on this merchant's pay.mmocoin.pro account, with the webhook URL there pointed at this forum's payment_gateway.php?method=mmocoin_pay. Payments cannot be approved without it.]]></phrase>
+			<phrase name="setting_mmocoin_pay_endpoint_title" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[API Base URL]]></phrase>
+			<phrase name="setting_mmocoin_pay_endpoint_desc" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[Base URL for MMOCoin Pay API (Default: https://pay.mmocoin.pro).]]></phrase>
+			<phrase name="setting_mmocoin_pay_accepted_tokens_title" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[Accepted Crypto Tokens]]></phrase>
+			<phrase name="setting_mmocoin_pay_accepted_tokens_desc" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[Comma-separated list of tokens to accept (USDC, USDT, MMO). Note: Ensure your payout wallet has at least ~0.01 SOL for rent.]]></phrase>
+			<phrase name="setting_mmocoin_pay_debug_title" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[Enable Debug Logging]]></phrase>
+			<phrase name="setting_mmocoin_pay_debug_desc" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[If enabled, detailed checkout session creation and webhook verification logs will be written to mmocoin_pay_debug.log in the forum root.]]></phrase>
+		</phrasetype>
+		<phrasetype name="GLOBAL" fieldname="global">
+			<phrase name="mmocoin_pay_gateway_name" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[MMOCoin Pay (USDC, USDT, MMO)]]></phrase>
+			<phrase name="mmocoin_pay_gateway_desc" date="1771600000" username="MMOCoin" version="1.0.0"><![CDATA[Pay securely using USDC, USDT, or MMO on Solana with instant automated subscription activation.]]></phrase>
+		</phrasetype>
+	</phrases>
+	<options>
+	</options>
+	<helptopics>
+	</helptopics>
+	<cronentries>
+	</cronentries>
+	<faqentries>
+	</faqentries>
+</product>

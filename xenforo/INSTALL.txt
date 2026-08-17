@@ -1,0 +1,56 @@
+================================================================================
+MMOCOIN PAY - XENFORO 2.X PAYMENT PROVIDER INSTALLATION
+Official Crypto Gateway: https://pay.mmocoin.pro
+================================================================================
+
+NOTE ON TESTING: This build was written against XenForo's own published
+developer documentation (docs.xenforo.com/devs) and a real, working open
+source XF2 payment provider used as a structural reference. It was NOT
+tested against a live XenForo install -- none was available while building
+it. The class extends XF\Payment\AbstractProvider the standard way XF's own
+Stripe/PayPal providers and third-party providers do. Test it on a staging
+board with a real payment before turning it on for members.
+
+ACCEPTED TOKENS:
+- MMO, USDT, USDC (Solana Network)
+
+MERCHANT REQUIREMENT:
+- Your receiving payout wallet on Solana must hold at least ~0.01 SOL to
+  support rent-exempt token account initialization.
+- User Upgrades using this payment profile must be priced in USD. The dollar
+  amount is converted into whichever token the buyer picks, at the live
+  rate, when they check out.
+
+INSTALLATION:
+
+1. UPLOAD:
+   Upload the contents of the "upload" folder to your XenForo root:
+   src/addons/MMOCoinPay/  -->  [your_forum_root]/src/addons/MMOCoinPay/
+
+2. INSTALL THE ADD-ON:
+   Go to AdminCP -> Add-ons -> Install/Upgrade -> select "MMOCoinPay" from
+   the list of add-ons found on disk -> Install.
+
+3. CREATE A PAYMENT PROFILE:
+   Go to AdminCP -> User Upgrades -> Payment Profiles -> Create New
+   Payment Profile.
+   - Provider: MMOCoin Pay (USDC, USDT, MMO)
+   - MMOCoin Pay API Key: from pay.mmocoin.pro -> Dashboard -> Developers
+   - Webhook Signing Secret: REQUIRED. Generate any random string, enter it
+     here, and enter the SAME string on pay.mmocoin.pro under
+     Dashboard -> Developers -> Webhooks.
+   - API Base URL: https://pay.mmocoin.pro
+   - Accepted Crypto Tokens: USDC,USDT,MMO
+
+4. SET THE WEBHOOK URL:
+   On pay.mmocoin.pro, set this merchant's Webhook URL to:
+       https://yourforum.com/payment_callback.php?_xfProvider=mmocoinpay
+   Payments cannot be approved without this -- the provider refuses to
+   activate an upgrade it cannot cryptographically verify.
+
+5. ATTACH THE PROFILE TO A USER UPGRADE:
+   AdminCP -> User Upgrades -> create or edit an upgrade, set its Cost in
+   USD, and select this payment profile.
+
+DONE! Your forum can now accept instant MMO, USDT, and USDC crypto upgrades!
+================================================================================
