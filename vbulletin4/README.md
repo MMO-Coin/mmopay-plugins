@@ -56,7 +56,7 @@ includes/paymentapi/class_mmocoin_pay.php
    ```
    https://yourforum.com/payment_gateway.php?method=mmocoin_pay
    ```
-   Payments cannot be approved without this — the gateway will not activate a subscription it cannot cryptographically verify.
+   Payments cannot be approved without this: the gateway will not activate a subscription it cannot cryptographically verify.
 5. Click **Save**.
 
 ---

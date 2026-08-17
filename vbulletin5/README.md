@@ -2,13 +2,13 @@
 
 **Accept instant MMO, USDT, and USDC crypto payments & paid subscriptions on your vBulletin 5 forum with zero chargebacks and automated usergroup promotion.**
 
-> This is the **vBulletin 5** build. If your forum runs vBulletin 4.x, use the separate `MMOCoin_Pay_vBulletin_4.x` package instead — the files install to different paths and are not interchangeable.
+> This is the **vBulletin 5** build. If your forum runs vBulletin 4.x, use the separate `MMOCoin_Pay_vBulletin_4.x` package instead. The files install to different paths and are not interchangeable.
 
 ---
 
 ## ⚠️ Before you install
 
-This build was written against vBulletin's own published Connect API documentation and vBulletin 5 file-layout reports, not against a live vBulletin 5 install — none was available while building it. vBulletin 5 kept the vBulletin 4 Paid Subscriptions system (`vB_PaidSubscriptionMethod`, the Payment API Manager, the `includes/paymentapi/class_*.php` pattern) largely unchanged rather than rewriting it, so this should install the same way it does on vBulletin 4. Test it on a staging board with a real payment before turning it on for members.
+This build was written against vBulletin's own published Connect API documentation and vBulletin 5 file-layout reports, not against a live vBulletin 5 install (none was available while building it). vBulletin 5 kept the vBulletin 4 Paid Subscriptions system (`vB_PaidSubscriptionMethod`, the Payment API Manager, the `includes/paymentapi/class_*.php` pattern) largely unchanged rather than rewriting it, so this should install the same way it does on vBulletin 4. Test it on a staging board with a real payment before turning it on for members.
 
 ---
 
@@ -43,7 +43,7 @@ Upload the contents of the `upload/` folder to your vBulletin root directory:
 ```
 core/includes/paymentapi/class_mmocoin_pay.php
 ```
-If your install does not have a `core` folder at the web root, upload to `includes/paymentapi/` instead — vBulletin 5's file layout differs slightly by install method, and the gateway showing up under Payment API Manager confirms it landed in the right place.
+If your install does not have a `core` folder at the web root, upload to `includes/paymentapi/` instead: vBulletin 5's file layout differs slightly by install method, and the gateway showing up under Payment API Manager confirms it landed in the right place.
 
 ### Step 2: Import Product in AdminCP
 1. Log in to your vBulletin **AdminCP**.
@@ -65,7 +65,7 @@ If your install does not have a `core` folder at the web root, upload to `includ
    ```
    https://yourforum.com/payment_gateway.php?method=mmocoin_pay
    ```
-   Payments cannot be approved without this — the gateway will not activate a subscription it cannot cryptographically verify.
+   Payments cannot be approved without this: the gateway will not activate a subscription it cannot cryptographically verify.
 5. Click **Save**.
 
 ---

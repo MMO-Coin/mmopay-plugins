@@ -31,16 +31,16 @@ This build was written against XenForo's own developer documentation and a real,
 
 ## Installation
 
-1. **Upload files** — the contents of `upload/` to your forum root:
+1. **Upload files**: the contents of `upload/` to your forum root:
    ```
    src/addons/MMOCoinPay/
    ```
-2. **Install the add-on** — AdminCP → Add-ons → Install/Upgrade → select MMOCoinPay → Install.
-3. **Create a Payment Profile** — AdminCP → User Upgrades → Payment Profiles → Create New Payment Profile, provider **MMOCoin Pay (USDC, USDT, MMO)**:
-   - **API Key** — from [pay.mmocoin.pro/dashboard/developers](https://pay.mmocoin.pro/dashboard/developers)
-   - **Webhook Signing Secret** — **required.** Generate any random string, enter it here, then enter the *same* string on pay.mmocoin.pro under Dashboard → Developers → Webhooks.
-   - **API Base URL** — `https://pay.mmocoin.pro`
-   - **Accepted Crypto Tokens** — `USDC,USDT,MMO`
+2. **Install the add-on**: AdminCP → Add-ons → Install/Upgrade → select MMOCoinPay → Install.
+3. **Create a Payment Profile**: AdminCP → User Upgrades → Payment Profiles → Create New Payment Profile, provider **MMOCoin Pay (USDC, USDT, MMO)**:
+   - **API Key**: from [pay.mmocoin.pro/dashboard/developers](https://pay.mmocoin.pro/dashboard/developers)
+   - **Webhook Signing Secret**: **required.** Generate any random string, enter it here, then enter the *same* string on pay.mmocoin.pro under Dashboard → Developers → Webhooks.
+   - **API Base URL**: `https://pay.mmocoin.pro`
+   - **Accepted Crypto Tokens**: `USDC,USDT,MMO`
 4. **Set the webhook URL** on pay.mmocoin.pro to:
    ```
    https://yourforum.com/payment_callback.php?_xfProvider=mmocoinpay

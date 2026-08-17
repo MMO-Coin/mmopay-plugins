@@ -2,13 +2,13 @@
 
 **Accept instant MMO, USDT, and USDC crypto payments & paid subscriptions on your vBulletin 6 forum with zero chargebacks and automated usergroup promotion.**
 
-> This is the **vBulletin 6** build. If your forum runs vBulletin 4.x or 5.x, use the matching `MMOCoin_Pay_vBulletin_4.x` or `MMOCoin_Pay_vBulletin_5.x` package instead — each is packaged separately for its own version.
+> This is the **vBulletin 6** build. If your forum runs vBulletin 4.x or 5.x, use the matching `MMOCoin_Pay_vBulletin_4.x` or `MMOCoin_Pay_vBulletin_5.x` package instead, each packaged separately for its own version.
 
 ---
 
 ## ⚠️ Before you install
 
-This build was written against vBulletin's own published Connect API documentation (which documents 6.1.0 directly) and vBulletin's own distribution listing, which confirms vBulletin 6 still ships a `core/` folder (`core/install/`, etc.) the same way vBulletin 5 does. It was not tested against a live vBulletin 6 install — none was available while building it. The underlying `vB_PaidSubscriptionMethod` class and Payment API Manager are the same legacy system vBulletin 4 and 5 use, carried forward rather than rewritten. Test it on a staging board with a real payment before turning it on for members.
+This build was written against vBulletin's own published Connect API documentation (which documents 6.1.0 directly) and vBulletin's own distribution listing, which confirms vBulletin 6 still ships a `core/` folder (`core/install/`, etc.) the same way vBulletin 5 does. It was not tested against a live vBulletin 6 install (none was available while building it). The underlying `vB_PaidSubscriptionMethod` class and Payment API Manager are the same legacy system vBulletin 4 and 5 use, carried forward rather than rewritten. Test it on a staging board with a real payment before turning it on for members.
 
 ---
 
@@ -64,7 +64,7 @@ core/includes/paymentapi/class_mmocoin_pay.php
    ```
    https://yourforum.com/payment_gateway.php?method=mmocoin_pay
    ```
-   Payments cannot be approved without this — the gateway will not activate a subscription it cannot cryptographically verify.
+   Payments cannot be approved without this: the gateway will not activate a subscription it cannot cryptographically verify.
 5. Click **Save**.
 
 ---

@@ -1,0 +1,54 @@
+================================================================================
+MMOCOIN PAY - WOOCOMMERCE (WORDPRESS) PLUGIN INSTALLATION
+Official Crypto Gateway: https://pay.mmocoin.pro
+================================================================================
+
+NOTE ON TESTING: This build was written against WooCommerce's own official
+developer documentation (developer.woocommerce.com) and a real, working
+open-source WooCommerce crypto payment gateway (CoinGate for WooCommerce)
+used as a structural reference. It extends WC_Payment_Gateway the standard
+documented way. It was NOT tested against a live WordPress/WooCommerce
+install -- none was available while building it. Test it on a staging store
+with a real order before relying on it for real customers.
+
+ACCEPTED TOKENS:
+- MMO, USDT, USDC (Solana Network)
+
+REQUIREMENTS:
+- WordPress with WooCommerce 6.0 or later active
+- PHP 7.4+ with cURL and hash extensions
+
+MERCHANT REQUIREMENT:
+- Your receiving payout wallet on Solana must hold at least ~0.01 SOL to
+  support rent-exempt token account initialization.
+
+INSTALLATION:
+
+1. UPLOAD:
+   Upload the "mmocoin-pay-woocommerce" folder inside "upload/" to your
+   WordPress plugins directory:
+   wp-content/plugins/mmocoin-pay-woocommerce/
+
+2. ACTIVATE:
+   WP Admin -> Plugins -> find "MMOCoin Pay for WooCommerce" -> Activate.
+
+3. CONFIGURE:
+   WP Admin -> WooCommerce -> Settings -> Payments -> MMOCoin Pay -> Manage.
+   - Enable MMOCoin Pay: on
+   - API Key: from pay.mmocoin.pro -> Dashboard -> Developers
+   - Webhook Signing Secret: REQUIRED. Generate any random string, enter it
+     here, and enter the SAME string on pay.mmocoin.pro under
+     Dashboard -> Developers -> Webhooks.
+   - API Base URL: https://pay.mmocoin.pro
+   - Accepted Crypto Tokens: USDC,USDT,MMO
+
+4. SET THE WEBHOOK URL:
+   The exact URL to use is shown next to the Webhook Signing Secret field
+   once you save the settings once (it is your site's home URL followed by
+   ?wc-api=wc_gateway_mmocoinpay). Set this as the merchant's Webhook URL on
+   pay.mmocoin.pro. Payments cannot be approved without it -- the gateway
+   refuses to mark an order paid that it cannot cryptographically verify.
+
+DONE! Your store can now accept instant MMO, USDT, and USDC crypto payments
+at checkout, alongside your existing payment methods.
+================================================================================
