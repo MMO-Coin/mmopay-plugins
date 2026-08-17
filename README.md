@@ -13,8 +13,11 @@ Source lives here so every change is a normal commit, not a hand-copied zip. **R
 | vBulletin 6.x | [`vbulletin6/`](vbulletin6/) | Built, untested on a live install | `core/includes/paymentapi/` |
 | XenForo 2.x | [`xenforo/`](xenforo/) | Built, untested on a live install | `src/addons/MMOCoinPay/` |
 | WooCommerce (WordPress) | [`wordpress/`](wordpress/) | Built, untested on a live install | `wp-content/plugins/` |
+| Zapier | [`zapier/`](zapier/) | Built, not yet pushed to Zapier | Deployed via `zapier push`, not a zip |
 
-Each folder is self-contained: its own `README.md` and `INSTALL.txt` with exact setup steps for that platform.
+Each platform folder is self-contained: its own `README.md` and (except Zapier, which has no install-time secret to configure until it's deployed) `INSTALL.txt` with exact setup steps.
+
+Zapier is structurally different from the rest: there is no file a merchant installs, and shipping it requires a Zapier Developer account to run `zapier push`/`zapier promote`, not just a GitHub release. See `zapier/README.md` for why, and for what a REST Hook trigger (real-time instead of polling) would require of the webhook system every other platform here depends on.
 
 ## Cutting a release
 
